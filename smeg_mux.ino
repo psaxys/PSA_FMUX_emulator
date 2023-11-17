@@ -1,14 +1,18 @@
 #include <SPI.h>
 #include <mcp2515.h>
 
+#define MENU_PIN 5
+
 struct can_frame canMsg1;
 struct can_frame canMsg2;
 MCP2515 mcp2515(10);
 
- 
+unsigned long timing, timing2;  // for delay
+
 void setup() {
+  pinMode(MENU_PIN, INPUT_PULLUP);
   //FMUX present
-  canMsg1.can_id  = 0x122;
+  canMsg1.can_id = 0x122;
   canMsg1.can_dlc = 8;
   canMsg1.data[0] = 0x00;
   canMsg1.data[1] = 0x00;
@@ -19,8 +23,8 @@ void setup() {
   canMsg1.data[6] = 0x00;
   canMsg1.data[7] = 0x00;
 
-  //Кнопка "Меню" / SETTING button
-  canMsg2.can_id  = 0x122;
+  //MENU button
+  canMsg2.can_id = 0x122;
   canMsg2.can_dlc = 8;
   canMsg2.data[0] = 0x00;
   canMsg2.data[1] = 0x40;
@@ -33,16 +37,26 @@ void setup() {
 
   while (!Serial);
   Serial.begin(115200);
-  
+
   mcp2515.reset();
-  mcp2515.setBitrate(CAN_125KBPS, MCP_8MHZ); //MCP2515 8mhz crystal oscillator
+  mcp2515.setBitrate(CAN_125KBPS, MCP_8MHZ);
   mcp2515.setNormalMode();
-  
+
   Serial.println("FMUX emulator");
 }
 
 void loop() {
-  mcp2515.sendMessage(&canMsg1);
-  Serial.println("FMUX sent");
-  delay(200);
+  if (millis() - timing > 200) {  //pause 200ms
+    timing = millis();
+    mcp2515.sendMessage(&canMsg1);
+   // Serial.println("FMUX present");
+  }
+
+  if (digitalRead(MENU_PIN) == 0) {
+    if (millis() - timing2 > 200) {  //pause 200ms
+    timing2 = millis();
+    mcp2515.sendMessage(&canMsg2);
+   // Serial.println("FMUX menu");
+    }
+  }
 }
