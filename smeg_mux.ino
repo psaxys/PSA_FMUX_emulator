@@ -42,7 +42,7 @@ void setup() {
   mcp2515.setBitrate(CAN_125KBPS, MCP_8MHZ);
   mcp2515.setNormalMode();
 
-  Serial.println("FMUX emulator");
+  Serial.println("Universal multiplexed panel (Multimedia control) emulator");
 }
 
 void loop() {
