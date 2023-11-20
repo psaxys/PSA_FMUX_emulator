@@ -1,4 +1,4 @@
-#include <SPI.h>
+la#include <SPI.h>
 #include <mcp2515.h>
 
 #define MENU_PIN 5
@@ -46,14 +46,14 @@ void setup() {
 }
 
 void loop() {
-  if (millis() - timing > 200) {  //pause 200ms
+  if (millis() - timing > 200) {  //delay 200ms
     timing = millis();
     mcp2515.sendMessage(&canMsg1);
    // Serial.println("FMUX present");
   }
 
   if (digitalRead(MENU_PIN) == 0) {
-    if (millis() - timing2 > 200) {  //pause 200ms
+    if (millis() - timing2 > 200) {  //delay 200ms
     timing2 = millis();
     mcp2515.sendMessage(&canMsg2);
    // Serial.println("FMUX menu");
