@@ -14,25 +14,25 @@ void setup() {
   //FMUX present
   canMsg1.can_id = 0x122;
   canMsg1.can_dlc = 8;
-  canMsg1.data[0] = 0x00;
+  canMsg1.data[0] = 0x00; //0x02; //0x80; //0x40;
   canMsg1.data[1] = 0x00;
   canMsg1.data[2] = 0x00;
   canMsg1.data[3] = 0x00;
   canMsg1.data[4] = 0x00;
-  canMsg1.data[5] = 0x00;
-  canMsg1.data[6] = 0x00;
+  canMsg1.data[5] = 0x00; //0x02; //0xFF;
+  canMsg1.data[6] = 0x00; //Volume potentiometer button
   canMsg1.data[7] = 0x00;
 
   //MENU button
   canMsg2.can_id = 0x122;
   canMsg2.can_dlc = 8;
-  canMsg2.data[0] = 0x00;
+  canMsg2.data[0] = 0x00; //0x02; //0x80; //0x40;
   canMsg2.data[1] = 0x40;
   canMsg2.data[2] = 0x00;
   canMsg2.data[3] = 0x00;
   canMsg2.data[4] = 0x00;
-  canMsg2.data[5] = 0x00;
-  canMsg2.data[6] = 0x00;
+  canMsg2.data[5] = 0x00; //0x02; //0xFF;
+  canMsg2.data[6] = 0x00; //Volume potentiometer button
   canMsg2.data[7] = 0x00;
 
   while (!Serial);
