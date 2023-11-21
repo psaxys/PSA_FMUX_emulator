@@ -2,6 +2,7 @@ la#include <SPI.h>
 #include <mcp2515.h>
 
 #define MENU_PIN 5
+#define ESC_PIN 6
 
 struct can_frame canMsg1;
 struct can_frame canMsg2;
